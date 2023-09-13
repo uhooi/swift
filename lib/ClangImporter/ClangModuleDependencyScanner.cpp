@@ -203,9 +203,9 @@ void ClangImporter::recordModuleDependencies(
                                         new clang::IgnoringDiagConsumer());
 
     llvm::SmallVector<const char*> clangArgs;
-    llvm::for_each(clangModuleDep.BuildArguments, [&](const std::string &Arg) {
-      clangArgs.push_back(Arg.c_str());
-    });
+    llvm::for_each(
+        clangModuleDep.getBuildArguments(),
+        [&](const std::string &Arg) { clangArgs.push_back(Arg.c_str()); });
 
     bool success = clang::CompilerInvocation::CreateFromArgs(
         depsInvocation, clangArgs, clangDiags);
